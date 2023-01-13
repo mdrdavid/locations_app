@@ -9,34 +9,35 @@ import SideDrawer from "./SideDrawer";
 
 const MainNavigation = (props) => {
 	const [drawerIsOpen, setDrawerIsOpen] = useState(false);
-	
+
 	// function to control opening the side drawer on button click
-	const openDrawer = () =>{
-		setDrawerIsOpen(true)
-	}
+	const openDrawerHandler = () => {
+		setDrawerIsOpen(true);
+	};
 
 	// function to control closing the side drawer on  clicking space outside the sidebar
 
-	const closeDrawer = () =>{
-		setDrawerIsOpen(false)
-	}
+	const closeDrawerHandler = () => {
+		setDrawerIsOpen(false);
+	};
 
 	return (
 		<React.Fragment>
-{/* if drawer is open render backdrop */}
+			{/* if drawer is open render backdrop */}
 
-{drawerIsOpen && <Backdrop onClick={closeDrawer}/>}
-{/* if drawer is open render side links else render null */}
+			{drawerIsOpen && <Backdrop onClick={closeDrawerHandler} />}
+			{/* if drawer is open render side links else render null */}
 
-			{/* {drawerIsOpen ? ( */}
-				<SideDrawer show={drawerIsOpen}>
+			{drawerIsOpen ? (
+				// <SideDrawer show={drawerIsOpen}>
+				<SideDrawer onClick={closeDrawerHandler}>
 					<nav className="main-navigation__drawer-nav">
 						<NavLinks />
 					</nav>
 				</SideDrawer>
-			{/* ) : null} */}
+			) : null}
 			<MainHeader>
-				<button className="main-navigation__menu-btn" onClick={openDrawer}>
+				<button className="main-navigation__menu-btn" onClick={openDrawerHandler}>
 					<span />
 					<span />
 					<span />
