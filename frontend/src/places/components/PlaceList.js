@@ -1,8 +1,9 @@
 import Card from "../../shared/UIElements/Card";
-import { PlaceItem } from "./PlaceItem";
+import { PlaceItem } from "./PlaceItem"
 import "./PlaceList.css";
+
 export const PlaceList = (props) => {
-	if (props.item === 0) {
+	if (props.items === 0) {
 		return (
 			<div className="place-list center">
 				<Card>
@@ -15,7 +16,8 @@ export const PlaceList = (props) => {
 
 	return (
 		<ul className="place-list">
-			{props.item.map((place) => (
+			{
+			props.items.map((place) => (
 				<PlaceItem
 					key={place.id}
 					id={place.id}

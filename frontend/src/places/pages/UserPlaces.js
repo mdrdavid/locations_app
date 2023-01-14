@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 import {PlaceList} from '../components/PlaceList';
 
@@ -30,7 +31,13 @@ const DUMMY_PLACES = [
 ];
 
 export const UserPlaces = () => {
+const userId = useParams().userId
 
-  return <PlaceList items={DUMMY_PLACES} />;
+// load a place only if the user id is equal to place creator id
+// return a new array if the creator is equal to userId
+const loadedPlaces = DUMMY_PLACES.filter(place =>place.creator === userId)
+// console.log("loadedPlaces", loadedPlaces);
+
+  return <PlaceList items={loadedPlaces} />;
 };
 
