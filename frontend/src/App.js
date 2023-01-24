@@ -9,6 +9,7 @@ import { NewPlace } from "./places/pages/NewPlace";
 import { Users } from "./user/pages/Users";
 import MainNavigation from "./shared/Navigation/MainNavigation";
 import { UserPlaces } from "./places/pages/UserPlaces";
+import { UpdatePlace } from "./places/pages/UpdatePlace";
 
 const App = () => {
 	return (
@@ -23,6 +24,9 @@ const App = () => {
 					<Route path="/places/new" exact>
 						{" "}
 						<NewPlace />{" "}
+					</Route>
+					<Route path="/places/placeId">
+						<UpdatePlace/>
 					</Route>
 					<Route path="/:userId/places" exact>
 						{" "}
