@@ -6,6 +6,7 @@ import {
 	VALIDATOR_REQUIRE,
 	VALIDATOR_MINLENGTH,
 } from "../../shared/utils/validators";
+import { useForm } from "../../shared/hooks/form-hook";
 import "./PlaceForm.css";
 
 const formReducer = (state, action) => {
