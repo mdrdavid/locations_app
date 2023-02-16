@@ -1,5 +1,6 @@
 import Card from "../../shared/UIElements/Card";
 import { PlaceItem } from "./PlaceItem"
+import { Button } from "../../shared/FormElements/Button";
 import "./PlaceList.css";
 
 export const PlaceList = (props) => {
@@ -8,7 +9,7 @@ export const PlaceList = (props) => {
 			<div className="place-list center">
 				<Card>
 					<h2>There are no places please create a place</h2>
-					<button>Share a place</button>
+					<Button to="/places/new">Share a place</Button>
 				</Card>
 			</div>
 		);
