@@ -9,8 +9,9 @@ const NavLinks = (props) => {
 
 	return (
 		<ul className="nav-links">
+			{/* this link can be seen by everyone */}
 			<li>
-				<NavLink to="/" exact>
+				<NavLink to="/" exact> 
 					ALL USERS
 				</NavLink>
 			</li>
@@ -24,20 +25,11 @@ const NavLinks = (props) => {
 					<NavLink to="/places/new">ADD PLACE</NavLink>
 				</li>
 			)}
-			{!auth.isLoggedIn && (
+			{!auth.isLoggedIn && ( // if not logged in will see this link
 				<li>
 					<NavLink to="/auth">AUTHENTICATE</NavLink>
 				</li>
 			)}
-			{/* <li>
-      <NavLink to="/u1/places">MY PLACES</NavLink>
-    </li>
-    <li>
-      <NavLink to="/places/new">ADD PLACE</NavLink>
-    </li>
-    <li>
-      <NavLink to="/auth">AUTHENTICATE</NavLink>
-    </li> */}
 			{auth.isLoggedIn && (
 				<li>
 					<button onClick={auth.logout}>LOGOUT</button>

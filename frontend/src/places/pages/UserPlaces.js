@@ -36,8 +36,6 @@ const userId = useParams().userId
 // load a place only if the user id is equal to place creator id
 // return a new array if the creator is equal to userId
 const loadedPlaces = DUMMY_PLACES.filter(place =>place.creator === userId)
-// console.log("loadedPlaces", loadedPlaces);
-
   return <PlaceList items={loadedPlaces} />;
 };
 
