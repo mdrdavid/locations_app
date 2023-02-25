@@ -8,7 +8,7 @@ export const PlaceList = (props) => {
 		return (
 			<div className="place-list center">
 				<Card>
-					<h2>There are no places please create a place</h2>
+					<h2>There are no places please create a place please</h2>
 					<Button to="/places/new">Share a place</Button>
 				</Card>
 			</div>
