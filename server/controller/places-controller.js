@@ -58,7 +58,7 @@ const getPlacesByUserId = (req, res, next) => {
 		// const error = new Error("Couldn't find place with provided user id")
 		// error.code =404
 		return next(
-			new HttpError("Couldn't find places with provided user id"),
+			new HttpError("Couldn't find places with provided user id!"),
 			404
 		);
 		// return res.status(404).json({message:"Couldn't find place with provided user id"})
@@ -72,7 +72,7 @@ const createPlace = async (req, res, next) => {
 		console.log(errors);
 		// throw new HttpError("Invalid inputs passed, please check your data", 422);
 		return next(
-			new HttpError("Invalid inputs passed, please check your data", 422)
+			new HttpError("Invalid inputs passed, please check your data~", 422)
 		);
 	}
 	// const { title, description, address, coordinates, creator, imageUrl } =
@@ -87,7 +87,7 @@ const createPlace = async (req, res, next) => {
 		return next(error);
 	}
 	const createdPlace = {
-		id: uuid(),
+		id: uuid(), // auto generate the id
 		title: title,
 		description: description,
 		address: address,
@@ -103,7 +103,7 @@ const updatePlace = (req, res, next) => {
 	const errors = validationResult(req); // check req object to see if there any validation errors
 	if (!errors.isEmpty()) {
 		console.log(errors);
-		throw new HttpError("Invalid inputs passed, please check your data", 422);
+		throw new HttpError("Invalid inputs passed, please check your data!", 422);
 	}
 	const { title, description } = req.body;
 	const placeId = req.params.placeId;
