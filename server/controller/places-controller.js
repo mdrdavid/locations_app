@@ -3,6 +3,7 @@ const { validationResult } = require("express-validator");
 
 const HttpError = require("../models/http-errors");
 const getCoordsForAddress = require("../utils/location");
+const Place = require("../models/places");
 
 let DUMMY_PLACES = [
 	{
@@ -33,14 +34,25 @@ let DUMMY_PLACES = [
 	},
 ];
 
-const getPlaceById = (req, res, next) => {
+const getPlaceById = async (req, res, next) => {
 	const placeId = req.params.placeId;
-	const place = DUMMY_PLACES.find((p) => {
-		return p.id === placeId;
-	});
+	let place;
+	// const place = DUMMY_PLACES.find((p) => {
+	// 	return p.id === placeId;
+	// const place = Place.findById(placeId);
+	// });
+	try {
+		place = await Place.findById(placeId);
+	} catch (err) {
+		const error = new HttpError("Something went wrong, could not find a place", 500);
+		return next(error);
+	}
 
+// if no place throw error
 	if (!place) {
-		throw new HttpError("Couldn't find place with provided id", 404);
+		// throw new HttpError("Couldn't find place with provided id", 404);
+		const error =  new HttpError("Couldn't find place with provided id", 404);
+		return next
 		// error.code =404
 		// throw error
 		// return res.status(404).json({message:"Couldn't find place with provided id"})
@@ -86,16 +98,32 @@ const createPlace = async (req, res, next) => {
 	} catch (error) {
 		return next(error);
 	}
-	const createdPlace = {
-		id: uuid(), // auto generate the id
-		title: title,
-		description: description,
-		address: address,
+	// const createdPlace = {
+	// 	id: uuid(), // auto generate the id
+	// 	title: title,
+	// 	description: description,
+	// 	address: address,
+	// 	location: coordinates,
+	// 	creator: creator,
+	// 	imageUrl: imageUrl,
+	// };
+	const createdPlace = new Place({
+		title,
+		description,
+		address,
 		location: coordinates,
-		creator: creator,
-		imageUrl: imageUrl,
-	};
-	DUMMY_PLACES.push(createdPlace);
+		image:
+			"https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/NYC_Empire_State_Building.jpg/640px-NYC_Empire_State_Building.jpg",
+		creator,
+	});
+	try {
+		await createdPlace.save(); // save a place to the database
+	} catch (err) {
+		const error = new HttpError("Creating place failed, please try again", 500);
+		console.log("error", err);
+		return next(error); // stop code execution in case of an error
+	}
+	// DUMMY_PLACES.push(createdPlace);
 	res.status(201).json({ place: createdPlace });
 };
 
