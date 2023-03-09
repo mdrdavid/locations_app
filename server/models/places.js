@@ -12,7 +12,7 @@ const placeSchema = new Schema({
 		lng: { type: Number, required: true },
 	},
 	//create a connection to user model
-	creator: { type: mongoose.Types.ObjectId, required:true, ref: "User"}, // Id from db
+	creator: { type: mongoose.Types.ObjectId, required: true, ref: "User" }, // Id from db
 	// creator: { type: String, required: true },
 });
 
