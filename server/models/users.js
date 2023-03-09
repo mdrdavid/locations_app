@@ -7,7 +7,9 @@ const userSchema = new Schema({
 	email: { type: String, required: true, unique: true },
 	password: { type: String, required: true, minLength: 6 },
 	image: { type: String, required: true },
-	places: { type: String, required: true },
+	// places: { type: String, required: true },
+		//create a connection to places model
+	places: [{ type: mongoose.Types.ObjectId, required:true, ref: "Place"}], // array means one user can add multiple places
 });
 // make sure the email is unique
 // userSchema.plugin(uniqueValidator);

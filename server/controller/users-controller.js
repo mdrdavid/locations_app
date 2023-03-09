@@ -63,7 +63,7 @@ const signup = async (req, res, next) => {
 		email,
 		image: "https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=300",
 		password,
-		places,
+		places: [],
 	});
 
 	try {
