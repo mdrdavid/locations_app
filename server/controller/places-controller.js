@@ -130,10 +130,10 @@ const createPlace = async (req, res, next) => {
 		await createdPlace.save({ session: session }); // save place
 		// add place id to a user
 		user.places.push(createdPlace);
-		// save the updated user 
-		user.save({session:session});
+		// save the updated user
+		user.save({ session: session });
 		// commit the transaction
-	await session.commitTransaction();
+		await session.commitTransaction();
 	} catch (err) {
 		const error = new HttpError("Creating place failed, please try again", 500);
 		console.log("error", err);
