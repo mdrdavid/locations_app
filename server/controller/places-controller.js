@@ -5,7 +5,7 @@ const HttpError = require("../models/http-errors");
 const getCoordsForAddress = require("../utils/location");
 const Place = require("../models/places");
 const User = require("../models/users");
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 
 let DUMMY_PLACES = [
 	{
@@ -125,13 +125,13 @@ const createPlace = async (req, res, next) => {
 	console.log(user);
 	try {
 		// await createdPlace.save(); // save a place to the database
-		const session = mongoose.startSession(); // start a session
+		const session = await mongoose.startSession(); // start a session
 		session.startTransaction(); // start a transaction
 		await createdPlace.save({ session: session }); // save place
 		// add place id to a user
 		user.places.push(createdPlace);
 		// save the updated user
-		user.save({ session: session });
+		await user.save({ session: session });
 		// commit the transaction
 		await session.commitTransaction();
 	} catch (err) {
