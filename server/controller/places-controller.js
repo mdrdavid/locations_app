@@ -101,7 +101,6 @@ const createPlace = async (req, res, next) => {
     }
     console.log(user)
     try {
-        // await createdPlace.save(); // save a place to the database
         const session = await mongoose.startSession() // start a session
         session.startTransaction() // start a transaction
         await createdPlace.save({ session: session }) // save place
@@ -179,7 +178,6 @@ const deletePlace = async (req, res, next) => {
     }
 
     try {
-        // await place.remove();
         const session = await mongoose.startSession()
         session.startTransaction()
         await place.remove({ session: session })
