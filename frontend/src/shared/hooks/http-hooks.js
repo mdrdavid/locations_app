@@ -1,5 +1,4 @@
-import { useEffect } from 'react'
-import { useState, useCallback, useRef } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
 
 export const useHttpClient = () => {
     const [isLoading, setIsLoading] = useState(false)
@@ -22,15 +21,22 @@ export const useHttpClient = () => {
                     signal: httpAbortCtrl.signal, // add it to the fetch request
                 })
                 const responseData = await response.json()
+                // remove abort controller from the request
+                activeHttpRequests.current = activeHttpRequests.current.filter(
+                    (reqCtrl) => reqCtrl !== httpAbortCtrl
+                )
 
                 if (!response.ok) {
                     throw new Error(responseData.message)
                 }
+                setIsLoading(false)
+
                 return responseData
             } catch (err) {
-                setError(error.message)
+                setIsLoading(false)
+                setError(err.message)
+                throw err
             }
-            setIsLoading(false)
         },
         []
     )
@@ -42,9 +48,7 @@ export const useHttpClient = () => {
     useEffect(() => {
         return () => {
             // about the request to the abort controller
-            activeHttpRequests.current.forEach((abortCtrl) =>
-                abortCtrl.abortCtrl()
-            )
+            activeHttpRequests.current.forEach((abortCtrl) => abortCtrl.abort())
         }
     }, [])
     return { isLoading: isLoading, error: error, sendRequest, clearError }
