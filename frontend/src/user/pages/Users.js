@@ -2,36 +2,51 @@ import React, { useEffect, useState } from 'react'
 import { UsersList } from '../components/UsersList'
 import ErrorModal from '../../shared/UIElements/ErrorModal'
 import LoadingSpinner from '../../shared/UIElements/LoadingSpinner'
+import { useHttpClient } from '../../shared/hooks/http-hooks'
 
 export const Users = () => {
-    const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState()
+    // const [isLoading, setIsLoading] = useState(false)
+    // const [error, setError] = useState()
+    const { isLoading, error, sendRequest, clearError } = useHttpClient()
     const [loadedUsers, setLoadedUsers] = useState()
     useEffect(() => {
-        const sendRequest = async () => {
-            setIsLoading(true)
+        //     const sendRequest = async () => {
+        //         setIsLoading(true)
+        //         try {
+        //             const response = await fetch('http://localhost:5000/api/users')
+
+        //             const responseData = await response.json()
+
+        //             if (!response.ok) {
+        //                 throw new Error(responseData.message)
+        //             }
+        //             setLoadedUsers(responseData.users)
+
+        //             // setIsLoading(false)
+        //         } catch (err) {
+        //             setError(err.message)
+        //         }
+        //         setIsLoading(false)
+        //     }
+        //     sendRequest()
+        // }, [])
+
+        const fetchUsers = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/users')
+                const responseData = await sendRequest(
+                    'http://localhost:5000/api/users'
+                )
 
-                const responseData = await response.json()
-
-                if (!response.ok) {
-                    throw new Error(responseData.message)
-                }
                 setLoadedUsers(responseData.users)
-
-                // setIsLoading(false)
-            } catch (err) {
-                setError(err.message)
-            }
-            setIsLoading(false)
+            } catch (err) {}
         }
-        sendRequest()
-    }, [])
+        fetchUsers()
+    }, [sendRequest])
 
     const errorHandler = () => {
-        setError(null)
+        clearError()
     }
+
     // const Users = [
     // 	{
     // 		id: "u1",
