@@ -98,7 +98,7 @@ export const Auth = () => {
                 //     throw new Error(data.message)
                 // }
                 // setIsLoading(false)
-                auth.login()
+                auth.login(responseData.user.id)
                 console.log(responseData)
             } catch (err) {
                 // console.log(err)
@@ -144,7 +144,7 @@ export const Auth = () => {
                 // console.log(data)
                 // setIsLoading(false)
                 console.log(responseData)
-                auth.login()
+                auth.login(responseData.user.id)
             } catch (err) {
                 console.log(err)
                 // setIsLoading(false)
