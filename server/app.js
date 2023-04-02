@@ -39,7 +39,7 @@ app.use((error, req, res, next) => {
 // connect to database
 mongoose
     .connect(
-        'mongodb+srv://david:david@cluster0.bkgfjsx.mongodb.net/mern?retryWrites=true&w=majority'
+        'mongodb+srv://david:david@cluster0.bkgfjsx.mongodb.net/?retryWrites=true&w=majority'
     )
     .then(() =>
         // if the connection is successfully start the server
