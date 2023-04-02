@@ -85,6 +85,8 @@ export const Auth = () => {
                 }
                 setIsLoading(false)
                 auth.login(response.user.id)
+
+                // auth.login(data.userId)
                 console.log(response)
             } catch (err) {
                 console.log(err)
@@ -119,6 +121,7 @@ export const Auth = () => {
                 setIsLoading(false)
                 console.log(response)
                 auth.login(response.user.id)
+                // auth.login(data.userId)
             } catch (err) {
                 console.log(err)
                 setIsLoading(false)
@@ -170,7 +173,6 @@ export const Auth = () => {
                         errorText="Please enter a valid password, at least 5 characters."
                         onInput={inputHandler}
                     />
-                    {/* <Button type="submit" disabled={!formState.isValid}> */}
                     <Button type="submit">
                         {isLoginMode ? 'LOGIN' : 'SIGNUP'}
                     </Button>
